@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Đá Phong Thủy Tinh Hoa | Gemstone & Crystal Shop</title>
+  <meta name="description"
+    content="Chuyên cung cấp đá quý, đá phong thủy, vòng tay đá phong thủy ngũ hành chính hãng. Mang lại may mắn, tài lộc và sức khỏe cho gia chủ." />
+  <meta name="keywords" content="đá phong thủy, đá quý, vòng tay phong thủy, thạch anh, ngọc bích, đá tự nhiên" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=10" />
+  <style>
+    /* Bypassing Cache for Modal - BULLETPROOF VERSION */
+    .modal-overlay {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .modal-large {
+      max-width: 1000px !important;
+      width: 100% !important;
+      height: 85vh !important;
+      max-height: 85vh !important;
+      padding: 0 !important;
+      display: block !important;
+      border-radius: 16px;
+      background: var(--bg-card) !important;
+      overflow: hidden !important;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      position: relative !important;
+    }
+
+    .modal-detail-grid {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: row;
+      background: transparent;
+    }
+
+    .modal-gallery-col {
+      width: 50%;
+      height: 100%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      border-right: 1px solid var(--border-light);
+      background: rgba(139, 105, 20, 0.03);
+      overflow-y: auto;
+    }
+
+    .modal-info-col {
+      width: 50%;
+      height: 100%;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+      .modal-detail-grid {
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      .modal-gallery-col {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        overflow-y: visible;
+      }
+
+      .modal-info-col {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        overflow-y: visible;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">
+        <img src="logo.jpg" alt="Tinh Hoa Đá Quý" class="logo-img" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active" data-vi="Trang Chủ" data-en="Home">Trang Chủ</a></li>
+        <li><a href="#about" class="nav-link" data-vi="Giới Thiệu" data-en="About Us">Giới Thiệu</a></li>
+        <li><a href="#products" class="nav-link" data-vi="Sản Phẩm" data-en="Products">Sản Phẩm</a></li>
+        <li><a href="#contact" class="nav-link" data-vi="Liên Hệ" data-en="Contact">Liên Hệ</a></li>
+        <li>
+          <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLang('vi')" id="btn-vi">VI</button>
+            <span>|</span>
+            <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+          </div>
+        </li>
+        <li>
+          <a href="admin.html" class="admin-link" title="Quản trị viên">⚙</a>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <img src="hero.png" alt="Đá Phong Thủy Tinh Hoa" class="hero-bg" />
+    <div class="hero-content container">
+      <h1 class="hero-title" data-vi="Xưởng Chế Tác Đá Quý & Tượng Phong Thủy<br/><em>Trao niềm tin, chạm cảm xúc</em>"
+        data-en="Gemstones &Feng Shui Atelier<br/><em>Delivering Trust, Touching Emotions</em>">
+        Xưởng Chế Tác Đá Quý & Tượng Phong Thủy<br /><em>Trao niềm tin, chạm cảm xúc</em>
+      </h1>
+      <p class="hero-sub"
+        data-vi="Khơi nguồn năng lượng tích cực – Mang tài lộc, bình an và may mắn đến cuộc sống của bạn qua từng viên đá quý tinh tuyển từ thiên nhiên."
+        data-en="Unlock positive energy – Bring prosperity, peace and good luck into your life through each carefully selected natural gemstone.">
+        Khơi nguồn năng lượng tích cực – Mang tài lộc, bình an và may mắn đến cuộc sống của bạn qua từng viên đá quý
+        tinh tuyển từ thiên nhiên.
+      </p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn btn-primary" data-vi="Khám Phá Ngay" data-en="Explore Now">Khám Phá Ngay</a>
+        <a href="#contact" class="btn btn-outline" data-vi="Tư Vấn Miễn Phí" data-en="Free Consultation">Tư Vấn Miễn
+          Phí</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">500+</span>
+          <span class="stat-label" data-vi="Loại Đá" data-en="Stone Types">Loại Đá</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">10K+</span>
+          <span class="stat-label" data-vi="Khách Hàng" data-en="Customers">Khách Hàng</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">20+</span>
+          <span class="stat-label" data-vi="Năm Kinh Nghiệm" data-en="Years Experience">Năm Kinh Nghiệm</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE BANNER ===== -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marqueeTrack">
+      <span data-vi="✦ Thạch Anh Tím" data-en="✦ Amethyst">✦ Thạch Anh Tím</span>
+      <span data-vi="✦ Ngọc Bích" data-en="✦ Jade">✦ Ngọc Bích</span>
+      <span data-vi="✦ Đá Hổ Phách" data-en="✦ Tiger Eye">✦ Đá Hổ Phách</span>
+      <span data-vi="✦ Obsidian" data-en="✦ Obsidian">✦ Obsidian</span>
+      <span data-vi="✦ Thạch Anh Hồng" data-en="✦ Rose Quartz">✦ Thạch Anh Hồng</span>
+      <span data-vi="✦ Citrine" data-en="✦ Citrine">✦ Citrine</span>
+      <span data-vi="✦ Selenite" data-en="✦ Selenite">✦ Selenite</span>
+      <span data-vi="✦ Tourmaline" data-en="✦ Tourmaline">✦ Tourmaline</span>
+      <span data-vi="✦ Thạch Anh Tím" data-en="✦ Amethyst">✦ Thạch Anh Tím</span>
+      <span data-vi="✦ Ngọc Bích" data-en="✦ Jade">✦ Ngọc Bích</span>
+      <span data-vi="✦ Đá Hổ Phách" data-en="✦ Tiger Eye">✦ Đá Hổ Phách</span>
+      <span data-vi="✦ Obsidian" data-en="✦ Obsidian">✦ Obsidian</span>
+      <span data-vi="✦ Thạch Anh Hồng" data-en="✦ Rose Quartz">✦ Thạch Anh Hồng</span>
+      <span data-vi="✦ Citrine" data-en="✦ Citrine">✦ Citrine</span>
+      <span data-vi="✦ Selenite" data-en="✦ Selenite">✦ Selenite</span>
+      <span data-vi="✦ Tourmaline" data-en="✦ Tourmaline">✦ Tourmaline</span>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="about-img-wrap">
+            <img src="product-stones.png" alt="Bộ sưu tập đá phong thủy" class="about-main-img" />
+          </div>
+        </div>
+        <div class="about-content">
+          <div class="section-tag" data-vi="Về Chúng Tôi" data-en="About Us">Về Chúng Tôi</div>
+          <h2 data-vi="Hành Trình Kiến Tạo Tâm Linh & Thẩm Mỹ" data-en="A Journey of Sculpting Spirituality & Artistry">
+            Hành Trình Kiến Tạo Tâm Linh & Thẩm Mỹ
+          </h2>
+          <p data-vi="Thành lập từ năm 2005, xưởng chế tác của chúng tôi khởi đầu từ niềm đam mê với những khối đá tự nhiên mang năng lượng đất trời. Qua hơn 20 năm phát triển, xưởng đã vươn mình trở thành một trong những đơn vị chế tác đá phong thủy và tạc tượng quy mô lớn, quy tụ những nghệ nhân giàu kinh nghiệm."
+            data-en="Established in 2005, our crafting workshop was born from a deep passion for natural stones naturally infused with earth energy. Through over two decades of dedicated craftsmanship, we have grown into a leading gemstone sculpting studio, home to master artisans of exceptional skill.">
+            Thành lập từ năm 2005, xưởng chế tác của chúng tôi khởi đầu từ niềm đam mê với những khối đá tự nhiên mang
+            năng lượng đất trời. Qua hơn 20 năm phát triển, xưởng đã vươn mình trở thành một trong những đơn vị chế tác
+            đá phong thủy và tạc tượng quy mô lớn, quy tụ những nghệ nhân giàu kinh nghiệm.
+          </p>
+          <p data-vi="Mỗi viên đá đều mang trong mình nguồn năng lượng riêng, phù hợp với từng cung mệnh ngũ hành, giúp cân bằng âm dương, thu hút tài lộc và mang lại bình an cho gia chủ."
+            data-en="Each stone possesses its own distinct energy resonant with the Five Elements - harmonizing natural energies, inviting prosperity, and bestowing lifelong peace upon its owner.">
+            Mỗi viên đá đều mang trong mình nguồn năng lượng riêng, phù hợp với từng cung mệnh ngũ hành, giúp cân bằng
+            âm dương, thu hút tài lộc và mang lại bình an cho gia chủ.
+          </p>
+          <a href="#contact" class="btn btn-primary" data-vi="Tìm Hiểu Thêm" data-en="Learn More">Tìm Hiểu Thêm</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS SECTION ===== -->
+  <section class="section products" id="products">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" data-vi="Sản Phẩm" data-en="Products">Sản Phẩm</div>
+        <h2 data-vi="Bộ Sưu Tập Đá Quý Tinh Chọn" data-en="Curated Gemstone Collection">Bộ Sưu Tập Đá Quý Tinh Chọn</h2>
+        <p data-vi="Từng viên đá được tuyển chọn kỹ lưỡng, mang năng lượng thuần khiết từ lòng đất"
+          data-en="Each stone is carefully selected, carrying pure energy from the earth">
+          Từng viên đá được tuyển chọn kỹ lưỡng, mang năng lượng thuần khiết từ lòng đất
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <!-- Search & Filter Section -->
+      <div class="public-search-container">
+        <form class="public-search-form" onsubmit="event.preventDefault(); handlePublicSearch();">
+          <div class="search-cat-wrap custom-select-wrap">
+            <div class="custom-select-trigger" id="customCatTrigger" onclick="toggleCustomSelect()">
+              <input type="text" id="customCatInput" value="Tất Cả Danh Mục" oninput="filterCategoryOptions()"
+                onclick="event.stopPropagation(); toggleCustomSelect(true)" autocomplete="off">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="custom-select-options" id="customCatOptions">
+              <div class="custom-option selected" data-value="all" onclick="selectCustomCategory('all', this)">Tất Cả
+                Danh Mục</div>
+              <div class="custom-option" data-value="vong" onclick="selectCustomCategory('vong', this)">Vòng Tay</div>
+              <div class="custom-option" data-value="da-roi" onclick="selectCustomCategory('da-roi', this)">Đá Rời</div>
+              <div class="custom-option" data-value="tuong" onclick="selectCustomCategory('tuong', this)">Tượng Phong
+                Thủy</div>
+              <div class="custom-option" data-value="an-tin" onclick="selectCustomCategory('an-tin', this)">Ấn Tín</div>
+            </div>
+            <input type="hidden" id="publicCategorySelect" value="all">
+          </div>
+          <div class="search-input-wrap">
+            <input type="text" id="publicSearchInput" oninput="handlePublicSearch()" placeholder="Tìm kiếm sản phẩm..."
+              data-placeholder-vi="Tìm kiếm sản phẩm..." data-placeholder-en="Search products..." />
+          </div>
+          <button type="submit" class="search-btn" aria-label="Tìm kiếm">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="products-grid" id="productsGrid">
+        <!-- Product 1 -->
+        <div class="product-card" data-cat="vong">
+          <div class="product-img-wrap">
+            <img src="bracelet.png" alt="Vòng Tay Thạch Anh Tím" />
+            <div class="product-badge" data-vi="Bán Chạy" data-en="Best Seller">Bán Chạy</div>
+            <div class="product-overlay">
+              <button class="overlay-btn" data-vi="Xem Chi Tiết" data-en="View Details"
+                onclick="showModal('Vòng Tay Thạch Anh Tím', 'Thạch anh tím giúp thanh lọc tâm trí, nâng cao trực giác và bảo vệ tinh thần. Phù hợp với mệnh Thổ và Kim.', '850,000 VNĐ', 'bracelet.png')">Xem
+                Chi Tiết</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-element" data-vi="Ngũ Hành: Thổ – Kim" data-en="Element: Earth – Metal">Ngũ Hành: Thổ –
+              Kim</div>
+            <h3 data-vi="Vòng Tay Thạch Anh Tím" data-en="Amethyst Bracelet">Vòng Tay Thạch Anh Tím</h3>
+            <div class="product-meta">
+              <div class="stars">★★★★★</div>
+              <span class="review-count">(128)</span>
+            </div>
+            <div class="product-price">
+              <span class="price" data-vi="850.000 ₫" data-en="$35">850.000 ₫</span>
+              <button class="add-cart-btn">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-cat="da-roi">
+          <div class="product-img-wrap">
+            <img src="crystals.png" alt="Bộ Đá Thạch Anh Hồng" />
+            <div class="product-badge sale" data-vi="Ưu Đãi" data-en="Sale">Ưu Đãi</div>
+            <div class="product-overlay">
+              <button class="overlay-btn" data-vi="Xem Chi Tiết" data-en="View Details"
+                onclick="showModal('Bộ Đá Thạch Anh Hồng', 'Thạch anh hồng tượng trưng cho tình yêu và lòng trắc ẩn, giúp thu hút duyên tình và mang lại hạnh phúc gia đình.', '1.200.000 VNĐ', 'crystals.png')">Xem
+                Chi Tiết</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-element" data-vi="Ngũ Hành: Hỏa – Thổ" data-en="Element: Fire – Earth">Ngũ Hành: Hỏa –
+              Thổ</div>
+            <h3 data-vi="Bộ Đá Thạch Anh Hồng" data-en="Rose Quartz Set">Bộ Đá Thạch Anh Hồng</h3>
+            <div class="product-meta">
+              <div class="stars">★★★★★</div>
+              <span class="review-count">(95)</span>
+            </div>
+            <div class="product-price">
+              <span class="price" data-vi="1.200.000 ₫" data-en="$50">1.200.000 ₫</span>
+              <button class="add-cart-btn">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-cat="da-roi">
+          <div class="product-img-wrap">
+            <img src="product-stones.png" alt="Đá Obsidian Đen" />
+            <div class="product-overlay">
+              <button class="overlay-btn" data-vi="Xem Chi Tiết" data-en="View Details"
+                onclick="showModal('Đá Obsidian Đen', 'Obsidian đen là lá chắn bảo vệ mạnh mẽ, xua đuổi năng lượng tiêu cực, phù hợp với mệnh Thủy.', '650.000 ₫', 'product-stones.png')">Xem
+                Chi Tiết</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-element" data-vi="Ngũ Hành: Thủy" data-en="Element: Water">Ngũ Hành: Thủy</div>
+            <h3 data-vi="Đá Obsidian Đen" data-en="Black Obsidian Stone">Đá Obsidian Đen</h3>
+            <div class="product-meta">
+              <div class="stars">★★★★☆</div>
+              <span class="review-count">(67)</span>
+            </div>
+            <div class="product-price">
+              <span class="price" data-vi="650.000 ₫" data-en="$27">650.000 ₫</span>
+              <button class="add-cart-btn">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-cat="tuong">
+          <div class="product-img-wrap">
+            <img src="bracelet.png" alt="Tượng Phật Ngọc Bích" />
+            <div class="product-badge new" data-vi="Mới" data-en="New">Mới</div>
+            <div class="product-overlay">
+              <button class="overlay-btn" data-vi="Xem Chi Tiết" data-en="View Details"
+                onclick="showModal('Tượng Phật Ngọc Bích', 'Ngọc bích mang ý nghĩa trường thọ, may mắn và phồn thịnh. Tượng Phật ngọc bích là vật phong thủy quý giá cho gia đình.', '3.500.000 ₫', 'bracelet.png')">Xem
+                Chi Tiết</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-element" data-vi="Ngũ Hành: Mộc" data-en="Element: Wood">Ngũ Hành: Mộc</div>
+            <h3 data-vi="Tượng Phật Ngọc Bích" data-en="Jade Buddha Statue">Tượng Phật Ngọc Bích</h3>
+            <div class="product-meta">
+              <div class="stars">★★★★★</div>
+              <span class="review-count">(43)</span>
+            </div>
+            <div class="product-price">
+              <span class="price" data-vi="3.500.000 ₫" data-en="$145">3.500.000 ₫</span>
+              <button class="add-cart-btn">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card" data-cat="vong">
+          <div class="product-img-wrap">
+            <img src="crystals.png" alt="Vòng Tay Mắt Hổ" />
+            <div class="product-overlay">
+              <button class="overlay-btn" data-vi="Xem Chi Tiết" data-en="View Details"
+                onclick="showModal('Vòng Tay Mắt Hổ', 'Mắt hổ tăng cường sự tự tin, thu hút tài lộc và bảo vệ sự nghiệp. Phù hợp với mệnh Mộc và Hỏa.', '720.000 ₫', 'crystals.png')">Xem
+                Chi Tiết</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-element" data-vi="Ngũ Hành: Mộc – Hỏa" data-en="Element: Wood – Fire">Ngũ Hành: Mộc –
+              Hỏa</div>
+            <h3 data-vi="Vòng Tay Mắt Hổ" data-en="Tiger Eye Bracelet">Vòng Tay Mắt Hổ</h3>
+            <div class="product-meta">
+              <div class="stars">★★★★★</div>
+              <span class="review-count">(82)</span>
+            </div>
+            <div class="product-price">
+              <span class="price" data-vi="720.000 ₫" data-en="$30">720.000 ₫</span>
+              <button class="add-cart-btn">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card" data-cat="da-roi">
+          <div class="product-img-wrap">
+            <img src="product-stones.png" alt="Citrine Vàng Nguyên Cục" />
+            <div class="product-badge" data-vi="Hot" data-en="Hot">Hot</div>
+            <div class="product-overlay">
+              <button class="overlay-btn" data-vi="Xem Chi Tiết" data-en="View Details"
+                onclick="showModal('Citrine Vàng Nguyên Cục', 'Citrine là đá của sự thịnh vượng và niềm vui. Giúp thu hút tài lộc, mang lại sự lạc quan và thành công trong kinh doanh.', '980.000 ₫', 'product-stones.png')">Xem
+                Chi Tiết</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-element" data-vi="Ngũ Hành: Kim – Thổ" data-en="Element: Metal – Earth">Ngũ Hành: Kim –
+              Thổ</div>
+            <h3 data-vi="Citrine Vàng Nguyên Cục" data-en="Natural Citrine Cluster">Citrine Vàng Nguyên Cục</h3>
+            <div class="product-meta">
+              <div class="stars">★★★★★</div>
+              <span class="review-count">(110)</span>
+            </div>
+            <div class="product-price">
+              <span class="price" data-vi="980.000 ₫" data-en="$40">980.000 ₫</span>
+              <button class="add-cart-btn">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-all-wrap">
+        <a href="#contact" class="btn btn-outline" data-vi="Xem Toàn Bộ Sản Phẩm" data-en="View All Products">Xem Toàn
+          Bộ Sản Phẩm</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="section testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" data-vi="Đánh Giá" data-en="Reviews">Đánh Giá</div>
+        <h2 data-vi="Khách Hàng Nói Gì?" data-en="What Our Customers Say?">Khách Hàng Nói Gì?</h2>
+      </div>
+      <div class="testimonials-slider" id="testimonialsSlider">
+        <div class="testi-card active">
+          <div class="testi-stars">★★★★★</div>
+          <p data-vi='"Mình đã mua vòng tay mắt hổ theo tư vấn của shop. Sau 3 tháng đeo, công việc kinh doanh thực sự khởi sắc hơn hẳn. Shop tư vấn nhiệt tình, sản phẩm chất lượng!"'
+            data-en='"I bought the tiger eye bracelet as recommended by the shop. After 3 months of wearing, my business has really improved. The shop gives enthusiastic advice, quality products!"'>
+            "Mình đã mua vòng tay mắt hổ theo tư vấn của shop. Sau 3 tháng đeo, công việc kinh doanh thực sự khởi sắc
+            hơn hẳn. Shop tư vấn nhiệt tình, sản phẩm chất lượng!"
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar">N</div>
+            <div>
+              <strong>Nguyễn Minh Tuấn</strong>
+              <small data-vi="Doanh nhân – Hà Nội" data-en="Entrepreneur – Hanoi">Doanh nhân – Hà Nội</small>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p data-vi='"Rất ấn tượng với dịch vụ tư vấn theo cung mệnh. Mình mệnh Thổ được gợi ý đá citrine và thạch anh tím. Đóng gói đẹp lắm, xứng đáng làm quà tặng cao cấp!"'
+            data-en='"Very impressed with the destiny-based consultation service. My Earth destiny was suggested citrine and amethyst. The packaging is beautiful, worthy of a premium gift!"'>
+            "Rất ấn tượng với dịch vụ tư vấn theo cung mệnh. Mình mệnh Thổ được gợi ý đá citrine và thạch anh tím. Đóng
+            gói đẹp lắm, xứng đáng làm quà tặng cao cấp!"
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: var(--accent-rose);">T</div>
+            <div>
+              <strong>Trần Thị Lan Anh</strong>
+              <small data-vi="Giáo viên – TP.HCM" data-en="Teacher – Ho Chi Minh City">Giáo viên – TP.HCM</small>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p data-vi='"Mua cho ba mẹ bộ đá phong thủy nhân dịp sinh nhật. Hộp gỗ cẩn thận, đẹp và sang. Ba mẹ rất thích. Sẽ tiếp tục ủng hộ shop!"'
+            data-en='"Bought a feng shui stone set for my parents on their birthday. Careful wooden box, beautiful and elegant. My parents loved it. Will continue to support the shop!"'>
+            "Mua cho ba mẹ bộ đá phong thủy nhân dịp sinh nhật. Hộp gỗ cẩn thận, đẹp và sang. Ba mẹ rất thích. Sẽ tiếp
+            tục ủng hộ shop!"
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: var(--accent-teal);">P</div>
+            <div>
+              <strong>Phạm Quốc Hùng</strong>
+              <small data-vi="Kỹ sư – Đà Nẵng" data-en="Engineer – Da Nang">Kỹ sư – Đà Nẵng</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-dots" id="testiDots">
+        <button class="dot active" onclick="goToSlide(0)"></button>
+        <button class="dot" onclick="goToSlide(1)"></button>
+        <button class="dot" onclick="goToSlide(2)"></button>
+      </div>
+
+      <div class="write-review-wrap" style="text-align:center;margin-top:32px">
+        <button class="btn btn-outline" onclick="openReviewModal()" data-vi="✍️ Viết Đánh Giá Của Bạn"
+          data-en="✍️ Write Your Review">✍️ Viết Đánh Giá Của Bạn</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="section-tag" data-vi="Liên Hệ" data-en="Contact">Liên Hệ</div>
+          <h2 data-vi="Hãy Để Chúng Tôi<br/>Tư Vấn Cho Bạn" data-en="Let Us<br/>Advise You">Hãy Để Chúng Tôi<br />Tư Vấn
+            Cho Bạn</h2>
+          <p data-vi="Đội ngũ chuyên gia phong thủy của chúng tôi luôn sẵn sàng hỗ trợ bạn chọn lựa những viên đá phù hợp nhất."
+            data-en="Our team of feng shui experts is always ready to help you choose the most suitable stones.">
+            Đội ngũ chuyên gia phong thủy của chúng tôi luôn sẵn sàng hỗ trợ bạn chọn lựa những viên đá phù hợp nhất.
+          </p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <strong data-vi="Địa Chỉ" data-en="Address">Địa Chỉ</strong>
+                <span>166/33 Đường Đại Mỗ, Phường Đại Mỗ, Hà Nội</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <strong data-vi="Điện Thoại" data-en="Phone">Điện Thoại</strong>
+                <span>0987 599 318</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <strong data-vi="Email" data-en="Email">Email</strong>
+                <span>daquydaoluu20@gmail.com</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🕐</div>
+              <div>
+                <strong data-vi="Giờ Mở Cửa" data-en="Working Hours">Giờ Mở Cửa</strong>
+                <span data-vi="Thứ 2 – CN: 8:00 – 20:00" data-en="Mon – Sun: 8:00 – 20:00">Thứ 2 – CN: 8:00 –
+                  20:00</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="contact-form-wrap">
+          <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+            <h3 data-vi="Gửi Yêu Cầu Tư Vấn" data-en="Send Consultation Request">Gửi Yêu Cầu Tư Vấn</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label data-vi="Họ và Tên *" data-en="Full Name *">Họ và Tên *</label>
+                <input type="text" id="name" placeholder="Nguyễn Văn A" required />
+              </div>
+              <div class="form-group">
+                <label data-vi="Số Điện Thoại *" data-en="Phone Number *">Số Điện Thoại *</label>
+                <input type="tel" id="phone" placeholder="0909 123 456" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label data-vi="Email" data-en="Email">Email</label>
+              <input type="email" id="email" placeholder="email@example.com" />
+            </div>
+            <div class="form-group">
+              <label data-vi="Năm Sinh (để tư vấn theo mệnh)" data-en="Year of Birth (for destiny consultation)">Năm
+                Sinh (để tư vấn theo mệnh)</label>
+              <input type="number" id="birthyear" placeholder="1990" min="1900" max="2010" />
+            </div>
+            <div class="form-group">
+              <label data-vi="Nội Dung Tư Vấn" data-en="Consultation Content">Nội Dung Tư Vấn</label>
+              <textarea id="message" rows="4" data-placeholder-vi="Tôi muốn tư vấn về..."
+                data-placeholder-en="I would like to consult about..." placeholder="Tôi muốn tư vấn về..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary full-width" data-vi="Gửi Yêu Cầu" data-en="Send Request">Gửi
+              Yêu Cầu</button>
+          </form>
+          <div class="form-success hidden" id="formSuccess">
+            <div class="success-icon">✓</div>
+            <h3 data-vi="Gửi Thành Công!" data-en="Sent Successfully!">Gửi Thành Công!</h3>
+            <p data-vi="Chúng tôi sẽ liên hệ lại với bạn trong vòng 24 giờ."
+              data-en="We will contact you within 24 hours.">Chúng tôi sẽ liên hệ lại với bạn trong vòng 24 giờ.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="logo">
+            <img src="logo.jpg" alt="Tinh Hoa Đá Quý" class="logo-img" />
+          </a>
+          <p data-vi="Mang năng lượng thiên nhiên đến cuộc sống của bạn qua những viên đá quý tinh tuyển từ khắp nơi trên thế giới."
+            data-en="Bringing nature's energy to your life through precious gemstones selected from around the world.">
+            Mang năng lượng thiên nhiên đến cuộc sống của bạn qua những viên đá quý tinh tuyển từ khắp nơi trên thế
+            giới.
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <h4 data-vi="Hỗ Trợ" data-en="Support">Hỗ Trợ</h4>
+          <ul>
+            <li><a href="#contact" data-vi="Chính Sách Đổi Trả" data-en="Return Policy">Chính Sách Đổi Trả</a></li>
+            <li><a href="#contact" data-vi="Hướng Dẫn Chọn Đá" data-en="Stone Selection Guide">Hướng Dẫn Chọn Đá</a>
+            </li>
+            <li><a href="#contact" data-vi="Câu Hỏi Thường Gặp" data-en="FAQ">Câu Hỏi Thường Gặp</a></li>
+            <li><a href="#contact" data-vi="Liên Hệ Tư Vấn" data-en="Contact Us">Liên Hệ Tư Vấn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Tinh Hoa Đá Quý. <span data-vi="Bản quyền thuộc về chúng tôi." data-en="All rights reserved.">Bản
+            quyền thuộc về chúng tôi.</span></p>
+        <p data-vi="Thiết kế bởi đội ngũ chuyên nghiệp" data-en="Designed by professional team">Thiết kế bởi đội ngũ
+          chuyên nghiệp</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ===== WRITE REVIEW MODAL ===== -->
+  <div class="modal-overlay" id="reviewModal" onclick="closeReviewModal()">
+    <div class="modal-box" onclick="event.stopPropagation()" style="max-width:500px">
+      <button class="modal-close" onclick="closeReviewModal()">✕</button>
+      <div class="modal-content" style="padding:28px">
+        <h3 style="margin-bottom:16px;text-align:center" data-vi="✍️ Đánh Giá Của Bạn" data-en="✍️ Your Review">✍️ Đánh
+          Giá Của Bạn</h3>
+        <form id="reviewForm" onsubmit="handleReviewSubmit(event)">
+          <div class="form-group" style="margin-bottom:14px">
+            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:6px" data-vi="Họ và Tên *"
+              data-en="Full Name *">Họ và Tên *</label>
+            <input type="text" id="reviewName" placeholder="Nguyễn Văn A" required
+              style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.9rem" />
+          </div>
+          <div class="form-group" style="margin-bottom:14px">
+            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:6px"
+              data-vi="Chức danh / Địa phương" data-en="Role / Location">Chức danh / Địa phương</label>
+            <input type="text" id="reviewRole" placeholder="VD: Khách hàng – Hà Nội"
+              style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.9rem" />
+          </div>
+          <div class="form-group" style="margin-bottom:14px">
+            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:6px" data-vi="Đánh Giá Số Sao"
+              data-en="Star Rating">Đánh Giá Số Sao</label>
+            <div class="rev-star-picker"
+              style="display:flex;gap:8px;font-size:1.8rem;color:var(--accent-amber);cursor:pointer">
+              <span onclick="setReviewStar(1)" class="rev-star" id="revStar1">★</span>
+              <span onclick="setReviewStar(2)" class="rev-star" id="revStar2">★</span>
+              <span onclick="setReviewStar(3)" class="rev-star" id="revStar3">★</span>
+              <span onclick="setReviewStar(4)" class="rev-star" id="revStar4">★</span>
+              <span onclick="setReviewStar(5)" class="rev-star" id="revStar5">★</span>
+            </div>
+            <input type="hidden" id="reviewStarVal" value="5" />
+          </div>
+          <div class="form-group" style="margin-bottom:20px">
+            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:6px"
+              data-vi="Nội Dung Đánh Giá *" data-en="Review Content *">Nội Dung Đánh Giá *</label>
+            <textarea id="reviewComment" rows="4" placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm & dịch vụ..."
+              required
+              style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.9rem"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary full-width" id="btnSubmitReview" data-vi="Gửi Đánh Giá"
+            data-en="Submit Review">Gửi Đánh Giá</button>
+        </form>
+        <div class="form-success hidden" id="reviewSuccess" style="text-align:center;padding:20px 0">
+          <div class="success-icon" style="font-size:2.2rem;color:#4CAF50">✓</div>
+          <h4 style="margin:10px 0 6px" data-vi="Gửi Đánh Giá Thành Công!" data-en="Review Submitted Successfully!">Gửi
+            Đánh Giá Thành Công!</h4>
+          <p style="font-size:0.88rem;color:var(--text-light)" data-vi="Cảm ơn bạn đã chia sẻ đánh giá với chúng tôi."
+            data-en="Thank you for sharing your review with us.">Cảm ơn bạn đã chia sẻ đánh giá với chúng tôi.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PRODUCT DETAIL MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-content modal-large" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-detail-grid">
+        <!-- Cột Ảnh -->
+        <div class="modal-gallery-col">
+          <div class="modal-main-img-wrap">
+            <img id="modalImg" src="" alt="Sản phẩm" />
+          </div>
+          <div class="modal-thumb-strip" id="modalThumbStrip">
+            <!-- Thumbnails rendered by JS -->
+          </div>
+        </div>
+        <!-- Cột Thông tin -->
+        <div class="modal-info-col">
+          <div class="modal-badge-row">
+            <span class="modal-badge" id="modalBadge"></span>
+            <div class="modal-rating">
+              <span id="modalStars" class="stars"></span>
+              <span id="modalReviews" class="reviews-count"></span>
+            </div>
+          </div>
+          <h2 id="modalTitle"></h2>
+          <p class="modal-price" id="modalPrice"></p>
+          <div class="modal-specs-box">
+            <div class="spec-item">
+              <span class="spec-label" data-vi="Ngũ Hành:" data-en="Element:">Ngũ Hành:</span>
+              <span class="spec-val" id="modalElement"></span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label" data-vi="Tình Trạng:" data-en="Status:">Tình Trạng:</span>
+              <span class="spec-val" style="color:var(--accent-teal)">Còn Hàng</span>
+            </div>
+          </div>
+          <p class="modal-desc" id="modalDesc"></p>
+          <button class="btn btn-primary btn-zalo-direct" onclick="orderProductModal()">
+            <span data-vi="💬 Tư Vấn & Đặt Hàng" data-en="💬 Order & Consult">💬 Tư Vấn & Đặt Hàng</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FLOATING QUICK CONTACT ===== -->
+  <div class="quick-contact">
+    <!-- Messenger / Facebook -->
+    <a href="https://www.facebook.com/share/1GY2CUEVD5/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"
+      class="qc-btn qc-messenger" title="Facebook">
+      <svg viewBox="0 0 28 28" fill="currentColor" width="26" height="26">
+        <path
+          d="M14 2C7.37 2 2 7.05 2 13.28c0 3.54 1.77 6.7 4.54 8.76V26l3.96-2.18c1.1.3 2.27.46 3.5.46 6.63 0 12-5.05 12-11.28S18.63 2 14 2zm1.2 15.17l-3.05-3.26-5.96 3.26 6.56-6.96 3.12 3.26 5.89-3.26-6.56 6.95z" />
+      </svg>
+      <span class="qc-tooltip">Trang Facebook</span>
+    </a>
+    <!-- Zalo -->
+    <a href="https://zalo.me/0987599318" target="_blank" rel="noopener noreferrer" class="qc-btn qc-zalo"
+      title="Chat Zalo">
+      <svg viewBox="0 0 50 50" width="32" height="32">
+        <circle cx="25" cy="25" r="23" fill="#0068FF" />
+        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="'Inter', Arial, sans-serif"
+          font-weight="800" font-size="12" fill="#FFF">Zalo</text>
+      </svg>
+      <span class="qc-tooltip">Chat Zalo: 0987 599 318</span>
+    </a>
+    <!-- Phone Call -->
+    <a href="tel:0987599318" class="qc-btn qc-phone" title="Gọi Ngay">
+      <div class="qc-phone-pulse"></div>
+      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+        <path
+          d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+      </svg>
+      <span class="qc-tooltip">Gọi ngay: 0987 599 318</span>
+    </a>
+  </div>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    aria-label="Back to top">↑</button>
+
+  <script src="script.js?v=10" defer></script>
+</body>
+
+</html>

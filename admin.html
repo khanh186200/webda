@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Admin Panel – Tinh Hoa Đá Quý</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="admin.css?v=2" />
+</head>
+
+<body>
+
+  <!-- ===== LOGIN PAGE ===== -->
+  <div class="login-page" id="loginPage">
+    <div class="login-bg-art">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+    </div>
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="logo-gem">◈</span>
+        <div>
+          <h1>Tinh Hoa <em>Đá Quý</em></h1>
+          <p>Admin Portal</p>
+        </div>
+      </div>
+      <h2>Đăng Nhập Quản Trị</h2>
+      <p class="login-sub">Vui lòng nhập thông tin tài khoản để tiếp tục</p>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="field-group">
+          <label for="username">Email Đăng Nhập</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon">✉️</span>
+            <input type="email" id="username" placeholder="admin@example.com" autocomplete="email" required />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="password">Mật Khẩu</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required />
+            <button type="button" class="toggle-pw" id="togglePw" onclick="togglePassword()">👁</button>
+          </div>
+        </div>
+        <div class="login-error hidden" id="loginError">
+          ⚠️ Tên đăng nhập hoặc mật khẩu không đúng!
+        </div>
+        <button type="submit" class="btn-login" id="loginBtn">
+          <span id="loginBtnText">Đăng Nhập</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </form>
+      <div class="login-hint">
+        <small>Đăng nhập bằng email Supabase Authentication của bạn</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN DASHBOARD ===== -->
+  <div class="admin-app hidden" id="adminApp">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-gem">◈</span>
+        <div>
+          <strong>Tinh Hoa Đá Quý</strong>
+          <small>Admin Panel</small>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" onclick="showTab('products')" id="tab-btn-products">
+          <span class="nav-icon">💎</span>
+          <span>Quản Lý Sản Phẩm</span>
+        </button>
+        <button class="nav-item" onclick="showTab('add')" id="tab-btn-add">
+          <span class="nav-icon">➕</span>
+          <span>Thêm Sản Phẩm</span>
+        </button>
+        <button class="nav-item" onclick="showTab('categories')" id="tab-btn-categories">
+          <span class="nav-icon">🗂️</span>
+          <span>Danh Mục</span>
+        </button>
+        <button class="nav-item" onclick="showTab('consultations')" id="tab-btn-consultations">
+          <span class="nav-icon">📩</span>
+          <span>Yêu Cầu Tư Vấn</span>
+          <span class="count-badge hidden" id="pendingConsultBadge">0</span>
+        </button>
+        <button class="nav-item" onclick="showTab('reviews')" id="tab-btn-reviews">
+          <span class="nav-icon">⭐</span>
+          <span>Quản Lý Đánh Giá</span>
+        </button>
+        <button class="nav-item" onclick="showTab('stats')" id="tab-btn-stats">
+          <span class="nav-icon">📊</span>
+          <span>Thống Kê</span>
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="admin-user">
+          <div class="admin-avatar">A</div>
+          <div>
+            <strong id="adminEmail" style="font-size:0.78rem;word-break:break-all">Administrator</strong>
+            <small>Quản trị viên</small>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="handleLogout()" title="Đăng xuất">⏻</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+
+      <!-- Top Bar -->
+      <header class="topbar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-title" id="topbarTitle">Quản Lý Sản Phẩm</div>
+        <div class="topbar-actions">
+          <a href="index.html" target="_blank" class="btn-view-site">
+            🌐 Xem Website
+          </a>
+          <div class="topbar-time" id="topbarTime"></div>
+        </div>
+      </header>
+
+      <!-- ── TAB: PRODUCTS ── -->
+      <section class="tab-content active" id="tab-products">
+        <div class="section-header-bar">
+          <div>
+            <h2>Danh Sách Sản Phẩm</h2>
+            <p>Tổng: <span class="count-badge" id="productCount">0</span> sản phẩm</p>
+          </div>
+          <div class="header-actions">
+            <div class="search-box">
+              <span>🔍</span>
+              <input type="text" placeholder="Tìm sản phẩm..." id="searchInput" oninput="renderProductTable()" />
+            </div>
+            <select class="filter-select" id="catFilter" onchange="renderProductTable()">
+              <option value="">Tất cả danh mục</option>
+              <!-- Dynamic options injected by JS -->
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="product-table" id="productTable">
+            <thead>
+              <tr>
+                <th width="60">Ảnh</th>
+                <th>Tên Sản Phẩm (VI)</th>
+                <th>Danh Mục</th>
+                <th>Ngũ Hành</th>
+                <th>Giá</th>
+                <th>Badge</th>
+                <th>Đánh Giá</th>
+                <th width="120">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+          <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">💎</div>
+            <p>Chưa có sản phẩm nào. <button onclick="showTab('add')">Thêm ngay</button></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB: ADD PRODUCT ── -->
+      <section class="tab-content" id="tab-add">
+        <div class="section-header-bar">
+          <div>
+            <h2 id="formTitle">Thêm Sản Phẩm Mới</h2>
+            <p>Điền đầy đủ thông tin sản phẩm bên dưới</p>
+          </div>
+        </div>
+
+        <form class="product-form" id="productForm" onsubmit="handleProductSubmit(event)">
+          <!-- Hidden ID for edit mode -->
+          <input type="hidden" id="editId" value="" />
+
+          <div class="form-cols">
+            <!-- Left Column -->
+            <div class="form-col">
+              <div class="form-card">
+                <h3>📝 Thông Tin Tiếng Việt</h3>
+                <div class="field-group">
+                  <label>Tên sản phẩm (VI) *</label>
+                  <input type="text" id="nameVi" placeholder="VD: Vòng Tay Thạch Anh Tím" required />
+                </div>
+                <div class="field-group">
+                  <label>Ngũ Hành (VI) *</label>
+                  <input type="text" id="elementVi" placeholder="VD: Ngũ Hành: Thổ – Kim" required />
+                </div>
+                <div class="field-group">
+                  <label>Giá (VI) *</label>
+                  <input type="text" id="priceVi" placeholder="VD: 850.000 ₫" required />
+                </div>
+                <div class="field-group">
+                  <label>Mô tả ngắn (VI)</label>
+                  <textarea id="descVi" rows="3" placeholder="Mô tả sản phẩm bằng tiếng Việt..."></textarea>
+                </div>
+              </div>
+
+              <div class="form-card">
+                <h3>🌍 Thông Tin Tiếng Anh</h3>
+                <div class="field-group">
+                  <label>Tên sản phẩm (EN) *</label>
+                  <input type="text" id="nameEn" placeholder="VD: Amethyst Bracelet" required />
+                </div>
+                <div class="field-group">
+                  <label>Element (EN) *</label>
+                  <input type="text" id="elementEn" placeholder="VD: Element: Earth – Metal" required />
+                </div>
+                <div class="field-group">
+                  <label>Price (EN) *</label>
+                  <input type="text" id="priceEn" placeholder="VD: $35" required />
+                </div>
+                <div class="field-group">
+                  <label>Short Description (EN)</label>
+                  <textarea id="descEn" rows="3" placeholder="Product description in English..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="form-col">
+              <div class="form-card">
+                <h3>🗂️ Phân Loại & Hiển Thị</h3>
+                <div class="field-group">
+                  <label>Danh Mục *</label>
+                  <select id="category" required>
+                    <option value="">-- Chọn danh mục --</option>
+                    <!-- Dynamic options injected by JS -->
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label>Badge (nhãn)</label>
+                  <select id="badge">
+                    <option value="">Không có</option>
+                    <option value="Bán Chạy|Best Seller">🔥 Bán Chạy / Best Seller</option>
+                    <option value="Ưu Đãi|Sale">💸 Ưu Đãi / Sale</option>
+                    <option value="Mới|New">🆕 Mới / New</option>
+                    <option value="Hot|Hot">❤️ Hot</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label>Số sao (1-5)</label>
+                  <div class="star-picker">
+                    <button type="button" class="star-btn active" onclick="setStar(5)" id="star5">★★★★★</button>
+                    <button type="button" class="star-btn" onclick="setStar(4)" id="star4">★★★★☆</button>
+                    <button type="button" class="star-btn" onclick="setStar(3)" id="star3">★★★☆☆</button>
+                  </div>
+                  <input type="hidden" id="starCount" value="5" />
+                </div>
+                <div class="field-group">
+                  <label>Số lượng đánh giá</label>
+                  <input type="number" id="reviewCount" placeholder="VD: 128" min="0" value="0" />
+                </div>
+              </div>
+
+              <div class="form-card">
+                <h3>🖼️ Hình Ảnh Sản Phẩm</h3>
+                <div class="image-picker">
+                  <p class="picker-label">Thêm ảnh vào bộ sưu tập:</p>
+                  <div class="preset-images">
+                    <button type="button" class="btn-preset-img" onclick="addPresetImage('bracelet.png')">
+                      <img src="bracelet.png" alt="Vòng tay" />
+                      <span>Vòng Tay</span>
+                    </button>
+                    <button type="button" class="btn-preset-img" onclick="addPresetImage('crystals.png')">
+                      <img src="crystals.png" alt="Tinh thể" />
+                      <span>Tinh Thể</span>
+                    </button>
+                    <button type="button" class="btn-preset-img" onclick="addPresetImage('product-stones.png')">
+                      <img src="product-stones.png" alt="Đá" />
+                      <span>Đá Rời</span>
+                    </button>
+                  </div>
+                  <div class="divider-or">hoặc</div>
+                  <div class="field-group">
+                    <label>Upload ảnh từ máy (Nhiều ảnh)</label>
+                    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('imgUpload').click()">
+                      <div class="upload-icon">📤</div>
+                      <p>Click để chọn một hoặc nhiều ảnh</p>
+                      <small>JPG, PNG, WEBP – Tối đa 5MB/ảnh</small>
+                      <input type="file" id="imgUpload" accept="image/*" multiple onchange="handleMultipleImageUpload(event)"
+                        style="display:none" />
+                    </div>
+                  </div>
+                  <div class="field-group" style="margin-top:20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                      <label style="margin:0;">Bộ Sưu Tập Ảnh Sản Phẩm</label>
+                      <span class="badge" id="galleryCountBadge" style="font-size:0.75rem; background:var(--accent-teal); color:white;">0 ảnh</span>
+                    </div>
+                    <div class="gallery-grid" id="galleryGrid">
+                      <!-- Images will be rendered here via JS -->
+                      <div style="grid-column: 1 / -1; text-align:center; padding: 20px; color: var(--text-light); font-size: 0.82rem;">
+                        📷 Chưa có ảnh nào trong bộ sưu tập. Hãy chọn từ mẫu hoặc upload bên trên.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="resetForm()">↺ Đặt lại</button>
+                <button type="submit" class="btn-save" id="saveBtn">
+                  <span>💾 Lưu Sản Phẩm</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- ── TAB: STATS ── -->
+      <section class="tab-content" id="tab-stats">
+        <div class="section-header-bar">
+          <div>
+            <h2>Thống Kê Tổng Quan</h2>
+            <p>Dữ liệu được tính từ danh sách sản phẩm hiện tại</p>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card primary">
+            <div class="stat-icon">💎</div>
+            <div class="stat-info">
+              <span class="stat-label">Tổng Sản Phẩm</span>
+              <strong class="stat-val" id="statsTotal">0</strong>
+            </div>
+          </div>
+          <div class="stat-card teal">
+            <div class="stat-icon">📿</div>
+            <div class="stat-info">
+              <span class="stat-label">Vòng Tay</span>
+              <strong class="stat-val" id="statsVong">0</strong>
+            </div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-icon">🪨</div>
+            <div class="stat-info">
+              <span class="stat-label">Đá Rời</span>
+              <strong class="stat-val" id="statsDaRoi">0</strong>
+            </div>
+          </div>
+          <div class="stat-card rose">
+            <div class="stat-icon">🏺</div>
+            <div class="stat-info">
+              <span class="stat-label">Tượng Phong Thủy</span>
+              <strong class="stat-val" id="statsTuong">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-bottom">
+          <div class="cat-breakdown">
+            <h3>Phân Bố Danh Mục</h3>
+            <div id="catBars"><!-- rendered by JS --></div>
+          </div>
+          <div class="recent-activity">
+            <h3>Sản Phẩm Gần Đây</h3>
+            <ul id="recentList"><!-- rendered by JS --></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB: CATEGORIES ── -->
+      <section class="tab-content" id="tab-categories">
+        <div class="section-header-bar">
+          <div>
+            <h2>Quản Lý Danh Mục</h2>
+            <p>Thêm, sửa, xóa danh mục sản phẩm</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-add-cat" onclick="openCatForm()" id="btnOpenCatForm">➕ Thêm Danh Mục</button>
+          </div>
+        </div>
+
+        <!-- Add/Edit Category Form (inline) -->
+        <div class="cat-form-wrap hidden" id="catFormWrap">
+          <div class="form-card" style="margin-bottom:1.5rem">
+            <h3 id="catFormTitle">➕ Thêm Danh Mục Mới</h3>
+            <form id="catForm" onsubmit="handleCatSubmit(event)">
+              <input type="hidden" id="catEditId" value="" />
+              <div class="form-cols">
+                <div class="form-col">
+                  <div class="field-group">
+                    <label>Tên danh mục (Tiếng Việt) *</label>
+                    <input type="text" id="catNameVi" placeholder="VD: Vòng Tay" required />
+                  </div>
+                  <div class="field-group">
+                    <label>Slug (ký tự nhận diện) *</label>
+                    <input type="text" id="catSlug" placeholder="VD: vong-tay" required pattern="[a-z0-9\-]+"
+                      title="Chỉ dùng chữ thường, số và dấu -" />
+                    <small style="color:var(--text-light)">Chỉ dùng chữ thường, số và dấu gạch ngang. VD:
+                      vong-tay</small>
+                  </div>
+                </div>
+                <div class="form-col">
+                  <div class="field-group">
+                    <label>Tên danh mục (English)</label>
+                    <input type="text" id="catNameEn" placeholder="VD: Bracelets" />
+                  </div>
+                  <div class="field-group">
+                    <label>Icon (emoji)</label>
+                    <input type="text" id="catIcon" placeholder="VD: 📿" maxlength="4" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-actions" style="margin-top:1rem">
+                <button type="button" class="btn-cancel" onclick="closeCatForm()">✕ Hủy</button>
+                <button type="submit" class="btn-save" id="catSaveBtn"><span>💾 Lưu Danh Mục</span></button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Categories Table -->
+        <div class="table-wrap">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>Icon</th>
+                <th>Tên (VI)</th>
+                <th>Tên (EN)</th>
+                <th>Slug</th>
+                <th>Số SP</th>
+                <th width="120">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="catTableBody">
+              <tr>
+                <td colspan="6" style="text-align:center;padding:40px;color:var(--text-light)">⏳ Đang tải...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ── TAB: CONSULTATIONS ── -->
+      <section class="tab-content" id="tab-consultations">
+        <div class="section-header-bar">
+          <div>
+            <h2>Yêu Cầu Tư Vấn Từ Khách Hàng</h2>
+            <p>Tổng: <span class="count-badge" id="consultTotalCount">0</span> yêu cầu</p>
+          </div>
+          <div class="header-actions">
+            <div class="search-box">
+              <span>🔍</span>
+              <input type="text" placeholder="Tìm tên, SĐT, nội dung..." id="consultSearchInput"
+                oninput="renderConsultationTable()" />
+            </div>
+            <select class="filter-select" id="consultFilter" onchange="renderConsultationTable()">
+              <option value="">Tất cả trạng thái</option>
+              <option value="pending">⏳ Chưa xử lý</option>
+              <option value="done">✅ Đã xử lý</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th width="140">Thời Gian</th>
+                <th>Họ & Tên</th>
+                <th>Số Điện Thoại</th>
+                <th>Email</th>
+                <th>Năm Sinh</th>
+                <th>Nội Dung Tư Vấn</th>
+                <th width="120">Trạng Thái</th>
+                <th width="140">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="consultTableBody">
+              <tr>
+                <td colspan="8" style="text-align:center;padding:40px;color:var(--text-light)">⏳ Đang tải...</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="empty-state hidden" id="consultEmptyState">
+            <div class="empty-icon">📩</div>
+            <p>Chưa có yêu cầu tư vấn nào.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB: REVIEWS ── -->
+        <section class="tab-content" id="tab-reviews">
+          <div class="section-header-bar">
+            <div>
+              <h2>Quản Lý Đánh Giá Từ Khách Hàng</h2>
+              <p>Tổng: <span class="count-badge" id="reviewTotalCount">0</span> đánh giá</p>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="product-table">
+              <thead>
+                <tr>
+                  <th width="140">Thời Gian</th>
+                  <th>Khách Hàng</th>
+                  <th>Chức Danh / Nơi Ở</th>
+                  <th width="110">Đánh Giá</th>
+                  <th>Nội Dung</th>
+                  <th width="100">Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="reviewTableBody">
+                <tr>
+                  <td colspan="6" style="text-align:center;padding:40px;color:var(--text-light)">⏳ Đang tải...</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="empty-state hidden" id="reviewEmptyState">
+              <div class="empty-icon">⭐</div>
+              <p>Chưa có đánh giá nào.</p>
+            </div>
+          </div>
+        </section>
+
+    </main>
+  </div>
+
+  <!-- ===== DELETE PRODUCT MODAL ===== -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="confirm-box">
+      <div class="confirm-icon">🗑️</div>
+      <h3>Xác Nhận Xóa</h3>
+      <p>Bạn có chắc muốn xóa sản phẩm <strong id="deleteProductName"></strong>?<br />Hành động này không thể hoàn tác.
+      </p>
+      <div class="confirm-btns">
+        <button class="btn-cancel-confirm" onclick="closeDeleteModal()">Hủy</button>
+        <button class="btn-delete-confirm" id="confirmDeleteBtn" onclick="confirmDelete()">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DELETE CATEGORY MODAL ===== -->
+  <div class="modal-overlay" id="deleteCatModal">
+    <div class="confirm-box">
+      <div class="confirm-icon">🗂️</div>
+      <h3>Xác Nhận Xóa Danh Mục</h3>
+      <p>Bạn có chắc muốn xóa danh mục <strong id="deleteCatName"></strong>?<br />Các sản phẩm trong danh mục này sẽ
+        không thuộc danh mục nào.</p>
+      <div class="confirm-btns">
+        <button class="btn-cancel-confirm" onclick="closeCatDeleteModal()">Hủy</button>
+        <button class="btn-delete-confirm" id="confirmDeleteCatBtn" onclick="confirmDeleteCat()">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="admin-supabase.js?v=3"></script>
+</body>
+
+</html>
