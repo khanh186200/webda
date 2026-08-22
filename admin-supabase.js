@@ -708,8 +708,8 @@ async function handleProductSubmit(e) {
       element_en: document.getElementById('elementEn').value.trim(),
       price_vi: document.getElementById('priceVi').value.trim(),
       price_en: document.getElementById('priceEn').value.trim(),
-      desc_vi: document.getElementById('descVi').value.trim(),
-      desc_en: document.getElementById('descEn').value.trim(),
+      desc_vi: document.getElementById('descVi').innerHTML.trim(),
+      desc_en: document.getElementById('descEn').innerHTML.trim(),
       category: document.getElementById('category').value,
       badge: document.getElementById('badge').value,
       stars: parseInt(document.getElementById('starCount').value) || 5,
@@ -750,8 +750,8 @@ function openEditForm(id) {
   document.getElementById('elementEn').value = p.element_en || '';
   document.getElementById('priceVi').value = p.price_vi || '';
   document.getElementById('priceEn').value = p.price_en || '';
-  document.getElementById('descVi').value = p.desc_vi || '';
-  document.getElementById('descEn').value = p.desc_en || '';
+  document.getElementById('descVi').innerHTML = p.desc_vi || '';
+  document.getElementById('descEn').innerHTML = p.desc_en || '';
   document.getElementById('category').value = p.category || '';
   document.getElementById('badge').value = p.badge || '';
   document.getElementById('reviewCount').value = p.reviews || 0;
@@ -789,12 +789,101 @@ function resetForm() {
   document.getElementById('editId').value = '';
   document.getElementById('formTitle').textContent = 'Thêm Sản Phẩm Mới';
   document.getElementById('saveBtn').querySelector('span').textContent = '💾 Lưu Sản Phẩm';
+  // Clear rich text editors
+  const descVi = document.getElementById('descVi');
+  const descEn = document.getElementById('descEn');
+  if (descVi) descVi.innerHTML = '';
+  if (descEn) descEn.innerHTML = '';
   productGallery = [];
   renderGalleryGrid();
   setStar(5);
 }
 
 window.resetForm = resetForm;
+
+// ──────────────────────────────────────────────────────────
+// RICH TEXT EDITOR HELPERS
+// ──────────────────────────────────────────────────────────
+
+function rteCmd(editorId, command) {
+  const editor = document.getElementById(editorId);
+  if (!editor) return;
+  editor.focus();
+  document.execCommand(command, false, null);
+  // Toggle active state on toolbar button
+  const wrap = editor.closest('.rte-wrap');
+  if (wrap) {
+    wrap.querySelectorAll('.rte-btn').forEach(btn => {
+      if (btn.title === (command === 'bold' ? 'In đậm' : command === 'italic' ? 'In nghiêng' : btn.title) ||
+          btn.title === (command === 'bold' ? 'Bold' : command === 'italic' ? 'Italic' : btn.title)) {
+        if (command === 'bold' || command === 'italic') {
+          btn.classList.toggle('active', document.queryCommandState(command));
+        }
+      }
+    });
+  }
+}
+
+function rteFontSizePx(editorId, px) {
+  const editor = document.getElementById(editorId);
+  if (!editor) return;
+  const size = parseInt(px);
+  if (!size || size < 1) return;
+  editor.focus();
+  const sel = window.getSelection();
+  // If nothing selected, select all content in editor
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) {
+    const range = document.createRange();
+    range.selectNodeContents(editor);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  const range = sel.getRangeAt(0);
+  const span = document.createElement('span');
+  span.style.fontSize = size + 'px';
+  try {
+    range.surroundContents(span);
+  } catch (e) {
+    // Partial selection across elements – extract then wrap
+    const fragment = range.extractContents();
+    span.appendChild(fragment);
+    range.insertNode(span);
+  }
+  // Xóa font-size lồng nhau trong span mới để cỡ chữ áp dụng đồng đều
+  span.querySelectorAll('[style]').forEach(el => {
+    el.style.removeProperty('font-size');
+    if (!el.getAttribute('style').trim()) {
+      el.removeAttribute('style');
+    }
+  });
+  // Place cursor after the span
+  const newRange = document.createRange();
+  newRange.setStartAfter(span);
+  newRange.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(newRange);
+}
+
+function rteClear(editorId) {
+  const editor = document.getElementById(editorId);
+  if (!editor) return;
+  editor.focus();
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) {
+    const range = document.createRange();
+    range.selectNodeContents(editor);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  document.execCommand('removeFormat', false, null);
+  // Also remove list formatting
+  document.execCommand('insertOrderedList', false, null);
+  document.execCommand('insertOrderedList', false, null);
+}
+
+window.rteCmd = rteCmd;
+window.rteFontSizePx = rteFontSizePx;
+window.rteClear = rteClear;
 
 function setStar(n) {
   currentStar = n;

@@ -207,7 +207,21 @@
                 </div>
                 <div class="field-group">
                   <label>Mô tả ngắn (VI)</label>
-                  <textarea id="descVi" rows="3" placeholder="Mô tả sản phẩm bằng tiếng Việt..."></textarea>
+                  <div class="rte-wrap" id="rteWrapVi">
+                    <div class="rte-toolbar">
+                      <button type="button" class="rte-btn" onclick="rteCmd('descVi','bold')" title="In đậm"><b>B</b></button>
+                      <button type="button" class="rte-btn" onclick="rteCmd('descVi','italic')" title="In nghiêng"><i>I</i></button>
+                      <div class="rte-sep"></div>
+                      <label class="rte-size-label">Cỡ chữ:</label>
+                      <input type="number" class="rte-size-input" id="rteSizeVi" value="16" min="8" max="96" placeholder="px"
+                        onkeydown="if(event.key==='Enter'){event.preventDefault();rteFontSizePx('descVi',this.value)}" />
+                      <span class="rte-size-unit">px</span>
+                      <button type="button" class="rte-btn rte-apply-btn" onclick="rteFontSizePx('descVi', document.getElementById('rteSizeVi').value)" title="Áp dụng cỡ chữ">✓</button>
+                      <div class="rte-sep"></div>
+                      <button type="button" class="rte-btn rte-clear" onclick="rteClear('descVi')" title="Xóa định dạng">✕ Clear</button>
+                    </div>
+                    <div class="rte-editor" id="descVi" contenteditable="true" data-placeholder="Mô tả sản phẩm bằng tiếng Việt..."></div>
+                  </div>
                 </div>
               </div>
 
@@ -227,7 +241,21 @@
                 </div>
                 <div class="field-group">
                   <label>Short Description (EN)</label>
-                  <textarea id="descEn" rows="3" placeholder="Product description in English..."></textarea>
+                  <div class="rte-wrap" id="rteWrapEn">
+                    <div class="rte-toolbar">
+                      <button type="button" class="rte-btn" onclick="rteCmd('descEn','bold')" title="Bold"><b>B</b></button>
+                      <button type="button" class="rte-btn" onclick="rteCmd('descEn','italic')" title="Italic"><i>I</i></button>
+                      <div class="rte-sep"></div>
+                      <label class="rte-size-label">Size:</label>
+                      <input type="number" class="rte-size-input" id="rteSizeEn" value="16" min="8" max="96" placeholder="px"
+                        onkeydown="if(event.key==='Enter'){event.preventDefault();rteFontSizePx('descEn',this.value)}" />
+                      <span class="rte-size-unit">px</span>
+                      <button type="button" class="rte-btn rte-apply-btn" onclick="rteFontSizePx('descEn', document.getElementById('rteSizeEn').value)" title="Apply font size">✓</button>
+                      <div class="rte-sep"></div>
+                      <button type="button" class="rte-btn rte-clear" onclick="rteClear('descEn')" title="Clear formatting">✕ Clear</button>
+                    </div>
+                    <div class="rte-editor" id="descEn" contenteditable="true" data-placeholder="Product description in English..."></div>
+                  </div>
                 </div>
               </div>
             </div>
