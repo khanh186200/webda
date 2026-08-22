@@ -161,7 +161,7 @@ function openProductDetailModal(index) {
   title.dataset.vi = p.name_vi || '';
   title.dataset.en = p.name_en || '';
 
-  desc.textContent = p.desc_vi || '';
+  desc.innerHTML = p.desc_vi || '';
   desc.dataset.vi = p.desc_vi || '';
   desc.dataset.en = p.desc_en || '';
 
