@@ -1,0 +1,19 @@
+# ─── Sensitive Configuration ─────────────────────────────
+# QUAN TRỌNG: File này chứa API keys - KHÔNG push lên GitHub public
+supabase-config.js
+
+# Nếu muốn push code, hãy tạo file supabase-config.example.js
+# với các giá trị placeholder và commit file đó thay thế.
+
+# ─── OS & Editor ─────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ─── Logs ────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ─── Node (nếu có dùng sau này) ──────────────────────────
+node_modules/

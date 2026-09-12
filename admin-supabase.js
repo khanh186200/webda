@@ -750,8 +750,8 @@ function openEditForm(id) {
   document.getElementById('elementEn').value = p.element_en || '';
   document.getElementById('priceVi').value = p.price_vi || '';
   document.getElementById('priceEn').value = p.price_en || '';
-  document.getElementById('descVi').innerHTML = p.desc_vi || '';
-  document.getElementById('descEn').innerHTML = p.desc_en || '';
+  document.getElementById('descVi').innerHTML = DOMPurify.sanitize(p.desc_vi || '');
+  document.getElementById('descEn').innerHTML = DOMPurify.sanitize(p.desc_en || '');
   document.getElementById('category').value = p.category || '';
   document.getElementById('badge').value = p.badge || '';
   document.getElementById('reviewCount').value = p.reviews || 0;

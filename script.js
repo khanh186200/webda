@@ -161,7 +161,7 @@ function openProductDetailModal(index) {
   title.dataset.vi = p.name_vi || '';
   title.dataset.en = p.name_en || '';
 
-  desc.innerHTML = p.desc_vi || '';
+  desc.innerHTML = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(p.desc_vi || '') : (p.desc_vi || '');
   desc.dataset.vi = p.desc_vi || '';
   desc.dataset.en = p.desc_en || '';
 
@@ -214,7 +214,20 @@ function orderProductModal() {
   const title = document.getElementById('modalTitle').textContent;
   closeModal();
   document.getElementById('message').value = `Tôi muốn được tư vấn về sản phẩm: ${title}`;
-  window.location.hash = '#contact';
+  // Delay nhỏ để modal kịp đóng trước khi scroll
+  setTimeout(() => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      const navbarHeight = 72;
+      const top = contactSection.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
+      // Focus vào ô Họ và Tên để người dùng điền ngay
+      setTimeout(() => {
+        const nameInput = document.getElementById('name');
+        if (nameInput) nameInput.focus();
+      }, 600);
+    }
+  }, 300);
 }
 
 window.switchModalMainImg = switchModalMainImg;
@@ -269,9 +282,34 @@ if (sliderEl) {
   sliderEl.addEventListener('mouseleave', startSlider);
 }
 
+// ─── Anti-spam: Rate limiting timestamps ───────────────
+const _rateLimit = {};
+function _checkRateLimit(key, cooldownMs = 60000) {
+  const now = Date.now();
+  if (_rateLimit[key] && now - _rateLimit[key] < cooldownMs) {
+    const remaining = Math.ceil((cooldownMs - (now - _rateLimit[key])) / 1000);
+    return remaining; // số giây còn lại
+  }
+  _rateLimit[key] = now;
+  return 0;
+}
+
 // ─── Contact Form ──────────────────────────────────────
 async function handleSubmit(e) {
   e.preventDefault();
+
+  // Honeypot check — bot thường điền vào trường ẩn này
+  const honeypot = document.getElementById('_gotcha')?.value || '';
+  if (honeypot) return; // Silently drop bot submissions
+
+  // Rate limiting — chặn spam (60 giây/lần)
+  const wait = _checkRateLimit('contact_form', 60000);
+  if (wait > 0) {
+    alert(currentLang === 'vi'
+      ? `⚠️ Bạn vừa gửi yêu cầu. Vui lòng chờ ${wait} giây trước khi gửi lại.`
+      : `⚠️ You just submitted a request. Please wait ${wait} seconds before trying again.`);
+    return;
+  }
 
   const btn = e.target.querySelector('button[type="submit"]');
   btn.textContent = currentLang === 'vi' ? 'Đang gửi...' : 'Sending...';
@@ -552,6 +590,20 @@ function setReviewStar(n) {
 
 async function handleReviewSubmit(e) {
   e.preventDefault();
+
+  // Honeypot check — bot thường điền vào trường ẩn này
+  const honeypotRev = document.getElementById('_gotcha_review')?.value || '';
+  if (honeypotRev) return; // Silently drop bot submissions
+
+  // Rate limiting — chặn spam review (120 giây/lần)
+  const wait = _checkRateLimit('review_form', 120000);
+  if (wait > 0) {
+    alert(currentLang === 'vi'
+      ? `⚠️ Bạn vừa gửi đánh giá. Vui lòng chờ ${wait} giây trước khi gửi lại.`
+      : `⚠️ You just submitted a review. Please wait ${wait} seconds before trying again.`);
+    return;
+  }
+
   const btn = document.getElementById('btnSubmitReview');
   if (btn) {
     btn.textContent = currentLang === 'vi' ? 'Đang gửi...' : 'Submitting...';
@@ -563,18 +615,19 @@ async function handleReviewSubmit(e) {
   const stars = parseInt(document.getElementById('reviewStarVal')?.value) || 5;
   const comment = document.getElementById('reviewComment')?.value.trim() || '';
 
+  // ✅ BẢO MẬT: status = 'pending' — admin phải duyệt trước khi hiển thị
   const record = {
     name,
     role,
     stars,
     comment,
-    status: 'approved',
+    status: 'pending',
     created_at: new Date().toISOString()
   };
 
   try {
     const { supabase } = await import('./supabase-config.js');
-    const { error } = await supabase.from('reviews').insert([{ name, role, stars, comment, status: 'approved' }]);
+    const { error } = await supabase.from('reviews').insert([{ name, role, stars, comment, status: 'pending' }]);
     if (error) {
       console.warn('[Review] Supabase insert error, fallback to localStorage:', error.message);
       saveReviewToLocalStorage(record);
@@ -591,8 +644,7 @@ async function handleReviewSubmit(e) {
   document.getElementById('reviewForm')?.classList.add('hidden');
   document.getElementById('reviewSuccess')?.classList.remove('hidden');
 
-  // Reload reviews in slider
-  initSupabaseReviews();
+  // Không reload slider ngay vì đánh giá đang pending duyệt
 }
 
 function saveReviewToLocalStorage(record) {
