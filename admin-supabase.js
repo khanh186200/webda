@@ -8,7 +8,13 @@
    • Storage upload (product-images bucket)
 ============================================================ */
 
-import { supabase, STORAGE_BUCKET } from './supabase-config.js';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+// ── Supabase config (inline để tránh bị Netlify chặn file supabase-config.js) ──
+const _SUPABASE_URL  = 'https://mdzwwfpexwaksqfgfdwy.supabase.co';
+const _SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kend3ZnBleHdha3NxZmdmZHd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyODY2MzUsImV4cCI6MjEwMTg2MjYzNX0.BCWs3_jfbptrSFKwkGNqbuhEU8PIV0R5t_bO9qoSuxI';
+const supabase       = createClient(_SUPABASE_URL, _SUPABASE_ANON);
+const STORAGE_BUCKET = 'product-images';
 
 // ──────────────────────────────────────────────────────────
 // STATE

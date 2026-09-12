@@ -1,0 +1,72 @@
+# ─────────────────────────────────────────────────────────────
+# netlify.toml — Cấu hình deploy cho Tinh Hoa Đá Quý
+# Deploy method: Drag & Drop
+# ─────────────────────────────────────────────────────────────
+
+# ── Chặn truy cập trực tiếp vào file cấu hình chứa API keys ──
+[[redirects]]
+  from   = "/supabase-config.js"
+  to     = "/404"
+  status = 404
+  force  = true
+
+# ── Chặn luôn cả trường hợp query string ──────────────────────
+[[redirects]]
+  from   = "/supabase-config.js*"
+  to     = "/404"
+  status = 404
+  force  = true
+
+# ── Chặn truy cập file SQL (không cần thiết trên production) ──
+[[redirects]]
+  from   = "/*.sql"
+  to     = "/404"
+  status = 404
+  force  = true
+
+# ── Chặn README khỏi bị đọc công khai ────────────────────────
+[[redirects]]
+  from   = "/README.md"
+  to     = "/404"
+  status = 404
+  force  = true
+
+# ── Security Headers cho toàn bộ site ────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Chống clickjacking
+    X-Frame-Options = "DENY"
+    # Chống MIME sniffing
+    X-Content-Type-Options = "nosniff"
+    # Chống XSS trên trình duyệt cũ
+    X-XSS-Protection = "1; mode=block"
+    # Không cho cache trang admin
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# ── Cache lâu hơn cho file tĩnh (ảnh, CSS, JS) ───────────────
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# ── Không cache trang HTML ────────────────────────────────────
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"

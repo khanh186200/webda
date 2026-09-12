@@ -9,7 +9,7 @@
   <meta http-equiv="Expires" content="0" />
   <!-- Bảo mật: Content Security Policy — chặn XSS, chỉ cho phép script từ các nguồn đáng tin -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.web3forms.com; frame-ancestors 'none';" />
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.web3forms.com; frame-ancestors 'none';" />
   <title>Admin Panel – Tinh Hoa Đá Quý</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
@@ -596,7 +596,7 @@
 
   <!-- DOMPurify: sanitize HTML từ Supabase trước khi dùng innerHTML -->
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
-  <script type="module" src="admin-supabase.js?v=4"></script>
+  <script type="module" src="admin-supabase.js?v=5"></script>
 </body>
 
 </html>
