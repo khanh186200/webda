@@ -1,9 +1,6 @@
 # ─── Sensitive Configuration ─────────────────────────────
-# QUAN TRỌNG: File này chứa API keys - KHÔNG push lên GitHub public
-supabase-config.js
-
-# Nếu muốn push code, hãy tạo file supabase-config.example.js
-# với các giá trị placeholder và commit file đó thay thế.
+# NOTE: supabase-config.js dùng anon key (public key) - an toàn để commit
+# Supabase anon key được thiết kế để expose ở client-side, RLS bảo vệ data
 
 # ─── OS & Editor ─────────────────────────────────────────
 .DS_Store
