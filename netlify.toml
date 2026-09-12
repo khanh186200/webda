@@ -3,20 +3,6 @@
 # Deploy method: Drag & Drop
 # ─────────────────────────────────────────────────────────────
 
-# ── Chặn truy cập trực tiếp vào file cấu hình chứa API keys ──
-[[redirects]]
-  from   = "/supabase-config.js"
-  to     = "/404"
-  status = 404
-  force  = true
-
-# ── Chặn luôn cả trường hợp query string ──────────────────────
-[[redirects]]
-  from   = "/supabase-config.js*"
-  to     = "/404"
-  status = 404
-  force  = true
-
 # ── Chặn truy cập file SQL (không cần thiết trên production) ──
 [[redirects]]
   from   = "/*.sql"
